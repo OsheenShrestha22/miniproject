@@ -1,0 +1,66 @@
+{% extends 'tracker/base_visitor.html' %}
+{% block title %}Log In{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% block body %}
+    <style>
+
+    @media (min-width: 768px) {
+        .col-sm-10 {
+            width: 0;
+        }
+    }
+    body{
+        background-color: #f8f8f8;
+    }
+    </style>
+<div class="container" style="width: 1094px;">
+    <div class="row"  >
+        <div class="col-sm-12 col-md-6 col-sm-offset-4" style="width: 40%;padding-top: 93px;">
+            <div class="panel panel-default">
+                <div class="panel-body" style="background-color: #417690;">
+                    <div id="header">
+                        <div id="branding center">
+                            <h3 style="font-family: Roboto;margin-left: 20px;color: white">Login</h3>
+                        </div>
+                    </div>
+                </div>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="{% url 'tracker:login_user'%}" method="post" enctype="multipart/form-data" style="padding: 20px;margin-left: -36px;">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="id_username" style="margin-left: 43px;">
+                                Username:
+                            </label>
+                            <br>
+                            <div class="col-sm-10">
+                                <input id="id_username" maxlength="30" name="username" type="text" style="margin: 10px 0px 0px -81px;border-radius: 5px; padding: 5px;width: 367px;">
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: -34px;">
+                            <label class="control-label col-sm-2" for="id_password" style="margin-left: 60px;margin-top: -17px;">
+                                Password:
+                            </label>
+                            <div class="col-sm-10">
+                                <input id="id_password" maxlength="30" name="password" type="password" style="margin: 10px 0px 0px -81px;border-radius: 5px; padding: 5px;width: 367px;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-5 col-sm-10">
+                                <button type="submit" class="btn btn-info" style="color: #fff;background-color: #79aec8;border-color: #79aec8;">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Don't have an account? <a href="{% url 'tracker:register' %}">Click here</a> to register.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+

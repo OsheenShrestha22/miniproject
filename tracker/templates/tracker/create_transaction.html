@@ -1,0 +1,48 @@
+{% extends 'tracker/base.html' %}
+{% block title %}Add a New Transaction{% endblock %}
+{% block transactions_active%}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>Add a New Category</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'tracker/form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>What is ATracker?</h3>
+                    <p>ATracker is an inventory that helps you to keep information about different transactions happening in your organisation</p>
+                    <h3>How to use it?</h3>
+                    <p>First, create a new category by filling out the form on this page. Once a category is created you will be able to add a category. Then, you can keep track of the information about different items related to it.</p>
+
+                    <ul>
+                        <li>Helps you to keep track of the transaction happening in your business</li>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends 'tracker/base.html' %}
+{% block transactions_active%}active{% endblock %}
+
+{% block body %}
+<div class="transactions-container container-fluid">
+
+    <!-- Category-->
+    <div class="row">
+        <div class="col-sm-12">
+            <p><h3>{{ user.username }}'s Category</h3></p>
+            <br>
+        </div>
+
+        {% if transactions %}
+            {% for transaction in transactions %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'tracker:detail' transaction.id %}">
+                            <img src="{{ transaction.product_logo.url }}" style="height: 190px;width: 250px; class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ transaction.category_name }}</h2>
+                            <a href="{% url 'tracker:detail' transaction.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+
+                            <form action="{% url 'tracker:delete_transaction' transaction.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="transaction_id" value="{{ transaction.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                            <!--
+                            <a href="{% url 'tracker:favorite_transaction' transaction.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
+                               <span class="glyphicon glyphicon-star {% if transaction.is_approved %}active{% endif %}"></span>-->
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="{% url 'tracker:create_transaction' %}">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add a Category
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if items %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Items</h3>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr>
+                                        <td>{{ item.product_name }}</td>
+                                        <td>
+                                            <a href="{% url 'tracker:detail' item.transaction.id %}">
+                                                <img src="{{ item.transaction.product_logo.url }}" class="img-responsive" style="width: 20px; float: left; margin-right: 10px;" />
+                                            </a>
+                                            <a href="{% url 'tracker:detail' item.transaction.id %}">{{ item.transaction.category_name }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'tracker:favorite' item.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if item.is_approved %}active{% endif %}"></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

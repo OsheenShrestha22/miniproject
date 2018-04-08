@@ -1,0 +1,65 @@
+body {
+    background: white;
+}
+
+ul.errorlist {
+    padding-left: 0;
+}
+
+.navbar-custom{
+    color: #f5dd5d;
+    background-color: #417690;
+    height: 70px;
+}
+.navbar-custom a{
+    color:#f5dd5d;
+}
+.navbar-brand{
+    color: #f5dd5d;
+}
+.navbar-header{
+    color: #f5dd5d;
+}
+
+
+.nav navbar-nav a{
+    color: #f5dd5d;
+}
+
+.panel-body{
+   font-family: Roboto;
+    color: black;
+    /* height: 65px; */
+    height: auto;
+    padding: 2px 16px;
+    /* line-height: 33px; */
+    background-color: #f8f8f8;
+}
+
+.container-fluid{
+    padding-left: 30%;
+    padding-up: 30%;
+}
+
+
+
+.collapse navbar-collapse{
+    color:#f5dd5d;
+}
+ul.errorlist > li {
+    list-style: none;
+}
+
+.navbar {
+    border-radius: 0;
+}
+
+.glyphicon-star {
+    color: #CCCCCC;
+    font-size: 16px;
+}
+
+.glyphicon-star.active {
+    color: #FDB230;
+}
+

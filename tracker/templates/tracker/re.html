@@ -1,0 +1,49 @@
+{% block content %}
+
+{% comment %} {% for item in data %}
+    {{ item.user }}
+      <h3>{{ item.product_name }}</h3>
+     {{ item.quantity }}<br>
+     {{ item.rate }}<br>
+     {{ item.total_cost }}<br>
+     {{ item.date }}<br>
+     {{ item.is_approved }}<br>
+    {% endfor %}
+{% endblock %}{% endcomment %}
+
+    <div class="panel panel-default">
+                <div >
+                <h2>Report</h2>
+                    <table class="table table-striped">
+                        <thead style="background: #79aec8">
+                            <tr>
+                                <th>Date</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Total Cost</th>
+                                <th>Status</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data %}
+                                <tr>
+                                    <td>{{ item.date }}</td>
+                                    <td>{{ item.product_name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.rate }}</td>
+                                    <td>{{ item.total_cost }}</td>
+                                    <td>{{ item.is_approved }}</td>
+
+                                    <td>
+                                        <a href="{% url 'tracker:favorite' item.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if item.is_approved %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+</div>
+{% endblock %}

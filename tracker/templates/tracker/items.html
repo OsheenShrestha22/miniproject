@@ -1,0 +1,58 @@
+{% extends 'tracker/base.html' %}
+{% block title %}All Items{% endblock %}
+{% block items_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" {% if filter_by == 'all' %}class="active"{% endif %}><a href="{% url 'tracker:items' 'all' %}">View All</a></li>
+                <li role="presentation" {% if filter_by == 'favorites' %}class="active"{% endif %}><a href="{% url 'tracker:items' 'favorites' %}">Aprroved</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <div class="panel panel-default">
+                <div>
+                    <table class="table table-striped">
+                        <thead style="background: #79aec8">
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Total Cost</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in item_list %}
+                                <tr>
+                                    <td>{{ item.product_name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.rate }}</td>
+                                    <td>{{ item.total_cost }}</td>
+                                    <td>{{ item.date }}</td>
+
+                                    <td>
+                                        <a href="{% url 'tracker:favorite' item.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if item.is_approved %}active{% endif %}"></span></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

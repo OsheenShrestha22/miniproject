@@ -1,0 +1,91 @@
+{% extends 'tracker/base.html' %}
+{% block title %}{{ transaction }}{% endblock %}
+{% block transactions_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+
+        <!-- Left Transaction Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'tracker:detail' transaction.id %}">
+                        {% if transaction.product_logo%}
+                            <img src="{{ transaction.product_logo.url }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ transaction.category_name }} </h1>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'tracker:detail' transaction.id %}">View All</a></li>
+                <li role="presentation"><a href="{% url 'tracker:create_item' transaction.id %}">Add Item</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Items</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Rate</th>
+                            <th>Total Cost</th>
+                            <th>Status</th>
+{#                            <th>Action</th>#}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in transaction.item_set.all %}
+                            <tr>
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.rate }}</td>
+                                <td>{{ item.total_cost }}</td>
+                                <td>
+                                    <a href="{% url 'tracker:favorite' item.id %}" class="btn-favorite"><span class="glyphicon glyphicon-star {% if item.is_favorite %}active{% endif %}"></span></a>
+                                </td>
+{% comment %}                               <td>
+                                    <form action="{% url 'tracker:delete_item' transaction.id item.id %}" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                       <!-- <input type="hidden" name="item_id" value="{{ item.id }}" /> -->
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>{% endcomment %}
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
